@@ -1,5 +1,5 @@
 # Installaion
-There are two components to get everything working as intended, the FivePD Plugin and the Service_Status Resource.
+There are two components to get everything working as intended, the FivePD Plugin and the Service_Status Resource. There is also one dependency for the menu to get working, a resource called **ScaleformUI**.
 
 **FivePD**: To install the FivePD Plugin, place the service_menu folder inside your fivepd/plugins folder.\
 **Service_Status**: Place the service_status folder inside your resource folder.
@@ -19,3 +19,13 @@ If you use Badger_Discord_API change the value of "use-discord-roles" to **true*
 1) The **Name** of the role you want to add. This name will be shown on the menu that players access to see which Services are Active/Inactive.
 2) The **Ace-Perm** is the name of the Ace Permission you want to use to allow players to go on duty for that particular service.
 3) The **Discord-Role** is the name of the Discord Role you want players to have in order to access that particular service.
+
+**Installing ScaleformUI**\
+This resource is used to create the menu. [ScaleformUI Github](https://github.com/manups4e/ScaleformUI/releases) \
+Download the ScaleformUI_Assets.zip file\
+Download the ScaleformUI_CSharp.zip file\
+Unzip and install ScaleformUI_Assets as a normal resource. Start this resource **before** FivePD in your server.cfg\
+Unzip the ScaleformUI_CSharp file and copy the **ScaleformUI.dll** file to your fivepd folder.
+Open the fxmanifest.lua in your fivepd folder.\
+In the files{} section add the line **'ScaleformUI.dll',**\
+Make sure you copy the single quotes and the comma at the end when you paste the text into fxmanifest.lua

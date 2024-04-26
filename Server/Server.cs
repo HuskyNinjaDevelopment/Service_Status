@@ -107,20 +107,22 @@ namespace Server
         }
 
         [EventHandler("ServiceStatus:Server:PlayerToggleDutyStatus")]
-        private void HandlePlayerToggleDutyStatus([FromSource]Player source, string service, bool status)
+        private void HandlePlayerToggleDutyStatus([FromSource]Player source, string service, bool status, string callsign, string department)
         {
+            string data = $"{department} : {callsign}";
+
             if(status)
             {
-                if (!_services[service].Contains(source.Name))
+                if (!_services[service].Contains(data))
                 {
-                    _services[service].Add(source.Name);
+                    _services[service].Add(data);
                 }
             }
             else 
             {
-                if (_services[service].Contains(source.Name))
+                if (_services[service].Contains(data))
                 {
-                    _services[service].Remove(source.Name);
+                    _services[service].Remove(data);
                 }
             }
 

@@ -12,6 +12,7 @@ using CitizenFX.Core;
 using ScaleformUI.Elements;
 using System.Drawing;
 using Newtonsoft.Json;
+using FivePD.API.Utils;
 
 namespace Client
 {
@@ -52,7 +53,7 @@ namespace Client
 
         private UIMenu BuildServiceMenu()
         {
-            UIMenu menu = new UIMenu("Player Run Services", "Service Status", new PointF(20, 20), new KeyValuePair<string, string>("commonmenu", "interaction_bgd"), false, false, 0.1f);
+            UIMenu menu = new UIMenu("Player Services", "Service Status", new PointF(20, 20), new KeyValuePair<string, string>("commonmenu", "interaction_bgd"), false, false, 0.1f);
 
             //Menu settings
             menu.DescriptionFont = new ItemFont("CharletComprimeColonge", 4);
@@ -98,6 +99,7 @@ namespace Client
 
             //Create Duty Sub-Menu
             UIMenu playerDutyMenu = new UIMenu("Available Player Services", "Services available to you for RP", new PointF(20, 20), new KeyValuePair<string, string>("commonmenu", "interaction_bgd"), false, false, 0.1f);
+            PlayerData playerData = Utilities.GetPlayerData();
             if(_servicesAvailableToPlayer != null) 
             { 
                 foreach(string item in _servicesAvailableToPlayer) 
@@ -113,7 +115,7 @@ namespace Client
                             if(selectedItem.Label == _activeDutyService)
                             {
                                 selectedItem.ItemData = !(bool)selectedItem.ItemData;
-                                TriggerServerEvent("ServiceStatus:Server:PlayerToggleDutyStatus", menuItem.Label, selectedItem.ItemData);
+                                TriggerServerEvent("ServiceStatus:Server:PlayerToggleDutyStatus", menuItem.Label, selectedItem.ItemData, playerData.Callsign, playerData.DepartmentShortName);
                                 if ((bool)selectedItem.ItemData)
                                 {
                                     selectedItem.SetRightBadge(BadgeIcon.TICK);
@@ -135,7 +137,7 @@ namespace Client
                         else if (!_allowMultiActiveDuty && !_onDuty)
                         {
                             selectedItem.ItemData = !(bool)selectedItem.ItemData;
-                            TriggerServerEvent("ServiceStatus:Server:PlayerToggleDutyStatus", menuItem.Label, selectedItem.ItemData);
+                            TriggerServerEvent("ServiceStatus:Server:PlayerToggleDutyStatus", menuItem.Label, selectedItem.ItemData, playerData.Callsign, playerData.DepartmentShortName);
                             if ((bool)selectedItem.ItemData)
                             {
                                 selectedItem.SetRightBadge(BadgeIcon.TICK);
@@ -152,7 +154,7 @@ namespace Client
                         else if(_allowMultiActiveDuty)
                         {
                             selectedItem.ItemData = !(bool)selectedItem.ItemData;
-                            TriggerServerEvent("ServiceStatus:Server:PlayerToggleDutyStatus", menuItem.Label, selectedItem.ItemData);
+                            TriggerServerEvent("ServiceStatus:Server:PlayerToggleDutyStatus", menuItem.Label, selectedItem.ItemData, playerData.Callsign, playerData.DepartmentShortName);
                             if ((bool)selectedItem.ItemData)
                             {
                                 selectedItem.SetRightBadge(BadgeIcon.TICK);
